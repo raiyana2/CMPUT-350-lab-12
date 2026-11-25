@@ -1,5 +1,14 @@
 ﻿Q3. What happens to the bounding boxes with update + fullRefit?
+The boxes move and resize to enclose the same groups of circles. When circles
+that started close together move apart, their group's box can get larger and
+overlap other boxes. That can make the BVH check more branches for a sample.
 
 Q4. What happens with reset (rebuild every frame) instead?
+The tree groups circles again using their current positions. The boxes tend to
+be tighter with less overlap, but they can jump when the grouping changes.
+Rebuilding takes more work per frame because it has to find new splits.
 
 Q5. Why are some circles drawn with their sides cut off?
+The starter code places circle centers anywhere on the screen, including less
+than one radius from an edge. The part of a circle outside the image has no
+pixels to draw into, so it looks cut off.
